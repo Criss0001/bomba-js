@@ -25,7 +25,14 @@ function showCountDown(){
     }
 }
 
-var cover = document.getElementById("activate");
+var cover = document.getElementById("cover");
+cover.add.EventListener("click", function () {
+    if(this.className == "box") this.classList.add("opened")
+    else this.classList.remove("opened");
+});
+
+
+var bnt = document.getElementById("activate");
 activate.addEventListener("click", function () {
     this.classList.add("pushed");
     alarm.onLoad();
@@ -37,4 +44,43 @@ activate.addEventListener("click", function () {
         alarm.load();
         alarm.play();
     }, 500);
+});
+
+var abort = document.getElementById("abort");
+abort.addEventListener("click", function () {
+    bnt.classList.remover("pushed");
+    panel.classList.remove("show");
+    clearInterval(theCount);
+    time.innerText = 9;
+    alarm.pause();
+    alarm.currentTime = 10;
+    alarm.load();
+});
+
+var reload = document.getElementById("restart");
+reload.addEventListener("click", function () {
+    panel.classList.remove("show");
+    turnoff.classList.remove("close");
+    turnoffHor.classList.remove("close");
+    abort.classList.remove("hide");
+    detonate.classList.remove("show");
+    cover.classList.remove("opened");
+    bnt.classList.remove("pushed");
+    this.classList.remove("show");
+    time.classList.remove("crono");
+    time.innerText = 9;
+});
+
+setTimeout(function () {
+    cover.classList.remove("opened");
+}, 100);
+
+var mute = document.getElementById("mute");
+mute.addEventListener("click", function () {
+    if (this.className == "muted"){
+        alarm.muted = false;
+    } else {
+        alarm.muted = true;
+        this.classList.add("muted");
+    }
 });
